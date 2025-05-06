@@ -3,6 +3,7 @@ package club.shengsheng.jvm;
 import tech.medivh.classpy.classfile.MethodInfo;
 import tech.medivh.classpy.classfile.bytecode.Instruction;
 import tech.medivh.classpy.classfile.constant.ConstantPool;
+import tech.medivh.classpy.classfile.attribute.LocalVariableTableAttribute;
 
 import java.util.ArrayDeque;
 import java.util.Deque;

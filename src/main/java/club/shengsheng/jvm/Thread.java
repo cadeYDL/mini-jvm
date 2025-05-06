@@ -27,6 +27,8 @@ public class Thread {
 
     private final BootstrapClassLoader classLoader;
 
+
+
     public Thread(String threadName, StackFrame stackFrame, BootstrapClassLoader classLoader) {
         this.threadName = threadName;
         this.stack = new JvmStack();
@@ -53,6 +55,7 @@ public class Thread {
                         stack.peek().pushObjectToOperandStack(staticField);
                     }
                 }
+                case iconst_0 -> stack.peek().pushObjectToOperandStack(0);
                 case iconst_1 -> stack.peek().pushObjectToOperandStack(1);
                 case iconst_2 -> stack.peek().pushObjectToOperandStack(2);
                 case iconst_3 -> stack.peek().pushObjectToOperandStack(3);
@@ -134,6 +137,23 @@ public class Thread {
                         stack.peek().jumpTo(jumpTo);
                     }
                 }
+                case if_icmpne ->{
+                    int value2 = (int) stack.peek().operandStack.pop();
+                    int value1 = (int) stack.peek().operandStack.pop();
+                    if (value1 != value2) {
+                        Branch branch = (Branch) instruction;
+                        int jumpTo = branch.getJumpTo();
+                        stack.peek().jumpTo(jumpTo);
+                    }
+                }
+                case iadd->{
+                    int value2 = (int) stack.peek().operandStack.pop();
+                    int value1 = (int) stack.peek().operandStack.pop();
+                    stack.peek().operandStack.push(value1 + value2);
+                }
+                case pop ->stack.peek().operandStack.pop();
+                case istore_2 ->stack.peek().localVariable[2] = stack.peek().operandStack.pop();
+                case iload_2 ->stack.peek().operandStack.push(stack.peek().localVariable[2]);
                 default -> throw new IllegalArgumentException("这个指令还没有实现" + instruction);
             }
         }

@@ -6,7 +6,7 @@ package club.shengsheng.jvm;
 public class Main {
 
     public static void main(String[] args) throws Exception {
-        Hotspot hotspot = new Hotspot("club.shengsheng.code.Demo", "/Users/gongxuanzhang/dev/lab/mini_jvm/target" +
+        Hotspot hotspot = new Hotspot("club.shengsheng.code.Demo", "/Users/bytedance/workspace/repo/mini-jvm/target" +
             "/classes");
         hotspot.start();
     }
